@@ -1,14 +1,15 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MovieContext } from "../../context/MovieContext";
-import MovieFilterRoundedIcon from '@mui/icons-material/MovieFilterRounded';
-import DensityMediumIcon from '@mui/icons-material/MenuRounded';  // Stylish Hamburger
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';  // Close Icon
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import "./index.css"; 
+import MovieFilterRoundedIcon from "@mui/icons-material/MovieFilterRounded";
+import DensityMediumIcon from "@mui/icons-material/MenuRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import "./index.css";
 
 const Navbar = () => {
-  const { searchQuery, setSearchQuery, searchMovies } = useContext(MovieContext);
+  const { searchQuery, setSearchQuery, searchMovies } =
+    useContext(MovieContext);
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,8 +39,25 @@ const Navbar = () => {
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [searchOpen]);
+
+  // Toggle "menu-open" class on body when menuOpen changes
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add("menu-open");
+    } else {
+      document.body.classList.remove("menu-open");
+    }
+  }, [menuOpen]);
+
+  // In Navbar.js, along with your existing useEffect for menuOpen:
+  useEffect(() => {
+    if (searchOpen) {
+      document.body.classList.add("search-open");
+    } else {
+      document.body.classList.remove("search-open");
+    }
   }, [searchOpen]);
 
   return (
@@ -54,7 +72,9 @@ const Navbar = () => {
       {/* Normal Nav Items (Visible on Large Screens) */}
       <ul className="nav-links">
         <li>
-          <Link to="/" className={isActive("/")}>Popular</Link>
+          <Link to="/" className={isActive("/")}>
+            Popular
+          </Link>
         </li>
         <li>
           <Link to="/top-rated" className={isActive("/top-rated")}>
@@ -81,7 +101,10 @@ const Navbar = () => {
 
       {/* Search & Hamburger Icons (Only for Small Screens) */}
       <div className="icons-container">
-        <button className="search-toggle" onClick={() => setSearchOpen(!searchOpen)}>
+        <button
+          className="search-toggle"
+          onClick={() => setSearchOpen(!searchOpen)}
+        >
           <SearchRoundedIcon />
         </button>
 
@@ -93,17 +116,29 @@ const Navbar = () => {
       {/* Mobile Dropdown Menu (Glassy Background) */}
       <ul className={`mobile-nav ${menuOpen ? "open" : ""}`}>
         <li>
-          <Link to="/" className={isActive("/")} onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/"
+            className={isActive("/")}
+            onClick={() => setMenuOpen(false)}
+          >
             Popular
           </Link>
         </li>
         <li>
-          <Link to="/top-rated" className={isActive("/top-rated")} onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/top-rated"
+            className={isActive("/top-rated")}
+            onClick={() => setMenuOpen(false)}
+          >
             Top Rated
           </Link>
         </li>
         <li>
-          <Link to="/upcoming" className={isActive("/upcoming")} onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/upcoming"
+            className={isActive("/upcoming")}
+            onClick={() => setMenuOpen(false)}
+          >
             Upcoming
           </Link>
         </li>
@@ -111,7 +146,11 @@ const Navbar = () => {
 
       {/* Search Bar for Small Screens (Glassy Background) */}
       {searchOpen && (
-        <form className="search-form-small" onSubmit={handleSearch} ref={searchRef}>
+        <form
+          className="search-form-small"
+          onSubmit={handleSearch}
+          ref={searchRef}
+        >
           <input
             type="text"
             placeholder="Search movies..."
