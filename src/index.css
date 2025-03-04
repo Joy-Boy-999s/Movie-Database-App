@@ -1,3 +1,4 @@
+/* Reset default margin and padding */
 body {
   margin: 0;
   padding: 0;
@@ -6,29 +7,94 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background: linear-gradient(135deg, #40567a, #7a91b1); /* Glossy gradient */
+  
+  background: url('https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg') 
+    no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
   display: flex;
+  flex-direction: column; /* Ensure navbar is positioned at the top */
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  border: 5px solid rgba(255, 255, 255, 0.2);
+  padding-top: 80px; /* Ensure content does not overlap with navbar */
+  position: relative;
+  color: #fff; /* Ensures text is readable */
 }
 
+/* Glassmorphism Full-Screen Overlay */
+.glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1); /* Transparent white */
+  backdrop-filter: blur(15px) brightness(1.1); /* Glass effect */
+  -webkit-backdrop-filter: blur(15px) brightness(1.1);
+  pointer-events: none; /* Ensures interactions are not blocked */
+}
 
-/* Glossy Card Effect */
+/* Main Container inside the Glass Overlay */
 .glossy-container {
-  background: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
-  backdrop-filter: blur(15px); /* Glass effect */
-  -webkit-backdrop-filter: blur(15px);
+  position: relative;
+  width: 85vw; /* 93% of the viewport width */
+  height: 70vh; /* 80% of the viewport height */
+  background: rgba(255, 255, 255, 0.15); /* Light transparent white */
+  backdrop-filter: blur(10px); /* More glass effect */
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 30px;
-  min-width: 90vw;
-  min-height: 80vh;
-  width: 96%;
-  height: 96%;
-  text-align: center;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Keeps content aligned at the top */
+  overflow: auto; /* Enables scrolling */
   box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Soft glossy shadow */
+}
+
+/* Ensure container is perfectly centered */
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 🎨 Stylish Scrollbar (Rounded, Sleek, Inside the Border) */
+.glossy-container::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 10px; /* Matches border radius */
+}
+
+.glossy-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1); /* Subtle track */
+  border-radius: 10px;
+  margin: 10px; /* Ensures scrollbar stays inside rounded edges */
+}
+
+.glossy-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5); /* Stylish thumb */
+  border-radius: 10px;
+  transition: 0.3s;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner glow effect */
+}
+
+.glossy-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3); /* More glow on hover */
+}
+@media (max-width: 768px) {
+  .glossy-container {
+    width: 80%;
+    height: 70%; /* Adjust height dynamically based on content */
+    align-self: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 5%;
+  }
 }
